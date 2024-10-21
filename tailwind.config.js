@@ -44,10 +44,10 @@ module.exports = {
         warning: withOpacity("--color-warning"),
         error: withOpacity("--color-error"),
       },
-      // container: {
-      //   center: true,
-      //   padding: "1rem",
-      // },
+      container: {
+        center: true,
+        padding: "1rem",
+      },
       fontFamily: {
         sans: ["var(--font-vazir)", ...fontFamily.sans],
       },
