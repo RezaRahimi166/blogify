@@ -10,7 +10,8 @@
       "@/providers/*": ["providers/*"],
       "@/ui/*": ["ui/*"],
       "@/lib/*": ["lib/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/constants/*": ["constants/*"]
     }
   }
 }

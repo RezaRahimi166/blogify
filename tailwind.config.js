@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+import { fontFamily } from "tailwindcss/defaultTheme";
+
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
     if (opacityValue !== undefined) {
@@ -46,9 +48,9 @@ module.exports = {
       //   center: true,
       //   padding: "1rem",
       // },
-      // fontFamily: {
-      //   sans: ["var(--font-vazir)", ...fontFamily.sans],
-      // },
+      fontFamily: {
+        sans: ["var(--font-vazir)", ...fontFamily.sans],
+      },
     },
   },
   plugins: [],
