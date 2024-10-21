@@ -1,5 +1,9 @@
 import React from "react";
 
+export const metadata = {
+  title: "بلاگ ها",
+};
+
 const Layout = ({ children }) => {
   return (
     <div>
