@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import CategoryList from "./_components/CategoryList";
 import Spinner from "@/ui/Spinner";
+import CategoryList from "../_components/CategoryList";
 
 export const metadata = {
   title: "بلاگ ها",
