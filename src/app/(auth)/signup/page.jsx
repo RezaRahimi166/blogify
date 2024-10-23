@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signupApi } from "@/services/authService";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const schema = yup.object({
   name: yup
@@ -39,7 +40,7 @@ const SignUp = () => {
       const { user, message } = await signupApi(values);
       console.log(user, message);
       toast.success(message);
-      // router.push("profile");
+      router.push("profile");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -79,6 +80,9 @@ const SignUp = () => {
           ثبت نام
         </Button>
       </form>
+      <Link href={"/singin"} className="text-secondary-500 mt-6 text-center">
+        ورود
+      </Link>
     </div>
   );
 };
