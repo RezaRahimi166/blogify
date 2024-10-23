@@ -1,9 +1,17 @@
-import { getPostBySlug } from "@/services/postServices";
+import { getPostBySlug, getPosts } from "@/services/postServices";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+export const dynmicParams = false;
+// 100=>10
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  const slugs = posts.map((post) => ({ slug: post.slug }));
+  return slugs;
+}
+
 export async function generateMetadata({ params }) {
-  const post = await getPostBySlug(params.postSlug);
+  const post = await getPostBySlug(params.slug);
 
   return {
     title: `${post.title}`,
@@ -11,7 +19,7 @@ export async function generateMetadata({ params }) {
 }
 
 async function SinglePost({ params }) {
-  const post = await getPostBySlug(params.postSlug);
+  const post = await getPostBySlug(params.slug);
 
   if (!post) notFound();
   return (
