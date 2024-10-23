@@ -4,10 +4,9 @@ import RHFTextField from "@/ui/RHFTextField";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signinApi } from "@/services/authService";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
+import SpinnerMini from "@/ui/SpinnerMini";
 
 const schema = yup.object({
   email: yup.string().email("ایمیل نامعتبر است").required("ایمیل الزامی  است"),
@@ -28,17 +27,10 @@ const SignIn = () => {
     mode: "onTouched",
   });
 
-  const router = useRouter();
+  const { signin } = useAuth();
 
   const onSubmit = async (values) => {
-    try {
-      const { user, message } = await signinApi(values);
-      console.log(user, message);
-      toast.success(message);
-      // router.push("profile");
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+    await signin(values);
   };
 
   return (
@@ -64,9 +56,16 @@ const SignIn = () => {
           isRequired
           errors={errors}
         />
-        <Button type={"submit"} variant="primary" className={"w-full"}>
-          ورود
-        </Button>
+        <div>
+          {isLoading ? (
+            <SpinnerMini />
+          ) : (
+            <Button type={"submit"} variant="primary" className={"w-full"}>
+              ورود
+            </Button>
+          )}
+        </div>
+
         <Link href={"/singup"} className="text-secondary-500 mt-6 text-center">
           ثبت نام
         </Link>

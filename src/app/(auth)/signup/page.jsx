@@ -4,10 +4,9 @@ import RHFTextField from "@/ui/RHFTextField";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signupApi } from "@/services/authService";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
+import SpinnerMini from "@/ui/SpinnerMini";
 
 const schema = yup.object({
   name: yup
@@ -33,17 +32,10 @@ const SignUp = () => {
     mode: "onTouched",
   });
 
-  const router = useRouter();
+  const { signup } = useAuth();
 
   const onSubmit = async (values) => {
-    try {
-      const { user, message } = await signupApi(values);
-      console.log(user, message);
-      toast.success(message);
-      router.push("profile");
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+    await signup(values);
   };
 
   return (
@@ -76,9 +68,15 @@ const SignUp = () => {
           isRequired
           errors={errors}
         />
-        <Button type={"submit"} variant="primary" className={"w-full"}>
-          ثبت نام
-        </Button>
+        <div>
+          {isLoading ? (
+            <SpinnerMini />
+          ) : (
+            <Button type={"submit"} variant="primary" className={"w-full"}>
+              ثبت نام
+            </Button>
+          )}
+        </div>
       </form>
       <Link href={"/singin"} className="text-secondary-500 mt-6 text-center">
         ورود
