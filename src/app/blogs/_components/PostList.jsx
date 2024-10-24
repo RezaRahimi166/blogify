@@ -7,11 +7,13 @@ import Avatar from "@/ui/Avatar";
 import Author from "./Author";
 import PostIntractions from "./PostIntractions";
 import { getPosts } from "@/services/postServices";
+import setCookieOnReq from "@/utils/setCookieOnReq";
+import { cookies } from "next/headers";
 
 const PostList = async () => {
-  // await new Promise((res) => setTimeout(() => res(), 3000));
-
-  const posts = await getPosts();
+  const cookieStore = cookies();
+  const options = setCookieOnReq(cookieStore);
+  const posts = await getPosts(options);
 
   return posts.length > 0 ? (
     <div className="grid grid-cols-12 gap-8">
