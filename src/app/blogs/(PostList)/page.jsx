@@ -1,6 +1,7 @@
-import { Suspense } from "react";
 import PostList from "../_components/PostList";
-import Spinner from "@/ui/Spinner";
+import { getPosts } from "@/services/postServices";
+import { cookies } from "next/headers";
+import setCookieOnReq from "@/utils/setCookieOnReq";
 
 // how to revalidate, time-based :
 
@@ -12,16 +13,13 @@ import Spinner from "@/ui/Spinner";
 //  + 2.new incoming request to build thes page =>
 // updated data will be shown to next user !! =>
 // ISR => Incermental Static re-generetion
-const BlogPage = () => {
+const BlogPage = async () => {
+  const cookieStore = cookies();
+  const options = setCookieOnReq(cookieStore);
+  const posts = await getPosts(options);
   return (
     <div>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nam
-        beatae explicabo sit eius perferendis atque rem at et ipsa.
-      </p>
-      <Suspense fallback={<Spinner />}>
-        <PostList />
-      </Suspense>
+      <PostList posts={posts} />
     </div>
   );
 };
