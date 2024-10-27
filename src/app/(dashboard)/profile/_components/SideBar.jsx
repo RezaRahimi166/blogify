@@ -3,11 +3,13 @@ import { useAuth } from "@/context/AuthContext";
 import {
   ArrowLeftStartOnRectangleIcon,
   HomeIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SideBarNavs from "./SideBarNavs";
+import ButtonIcon from "@/ui/ButtonIcon";
 
-function SideBar() {
+function SideBar({ onClose }) {
   const { logout } = useAuth();
 
   // const logoutHandler = async () => {
@@ -15,7 +17,7 @@ function SideBar() {
   // };
 
   return (
-    <div className="overflow-y-auto flex flex-col p-5 h-screen pt-10 lg:pt-8">
+    <div className="overflow-y-auto flex flex-col p-6 h-screen pt-10 lg:pt-8">
       {/* Drawer header */}
       <Link
         href="/"
@@ -25,6 +27,14 @@ function SideBar() {
         <HomeIcon className="w-6 h-6" />
         <span> نکست بلاگ</span>
       </Link>
+      <ButtonIcon
+        onClick={onClose}
+        className={"block lg:hidden border-none"}
+        variant={"outline"}
+      >
+        <XMarkIcon />
+      </ButtonIcon>
+
       {/* Drawer content */}
       <div className="overflow-y-auto flex-auto">
         <SideBarNavs />
