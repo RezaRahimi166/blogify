@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "classnames": "^2.5.1",
     "next": "14.2.15",
     "query-string": "^9.1.1",
     "react": "^18",

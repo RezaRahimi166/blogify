@@ -2,6 +2,7 @@ import { getPostBySlug, getPosts } from "@/services/postServices";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import RelatedPost from "../_components/RelatedPost";
+import PostComments from "../_components/comments/PostComments";
 
 export const dynmicParams = false;
 // 100=>10
@@ -38,7 +39,7 @@ async function SinglePost({ params }) {
         />
       </div>
       {post.related.length > 0 && <RelatedPost posts={post.related} />}
-      {/* <BlogComments post={post} /> */}
+      <PostComments post={post} />
     </div>
   );
 }
