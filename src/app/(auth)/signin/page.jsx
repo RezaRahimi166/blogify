@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/AuthContext";
 import SpinnerMini from "@/ui/SpinnerMini";
 
 const schema = yup.object({

@@ -13,13 +13,13 @@ const PostComments = ({ post: { comments, _id: postId } }) => {
   const [open, setOpen] = useState(true);
   const [parent, setParent] = useState(null);
 
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const addNewCommentHandler = (parent) => {
-    // if (!user) {
-    //   router.push("/signin");
-    //   return;
-    // }
+    if (!user) {
+      router.push("/signin");
+      return;
+    }
     setParent(parent);
     setOpen(true);
   };
