@@ -1,5 +1,10 @@
 "use client";
+import ConfirmDelete from "@/ui/ConfirmDelete";
+import Modal from "@/ui/Modal";
 import Link from "next/link";
+import { useState } from "react";
+import useDeletePost from "../useDeletePost";
+import { useRouter } from "next/navigation";
 
 const { default: ButtonIcon } = require("@/ui/ButtonIcon");
 const {
@@ -20,11 +25,36 @@ export function CreatePost() {
   );
 }
 
-const DeletePost = ({ id }) => {
+const DeletePost = ({ post: { _id: id, title } }) => {
+  const [open, setOpen] = useState(false);
+  const { isDeleting, deletePost } = useDeletePost();
+  const router = useRouter();
+
   return (
-    <ButtonIcon variant={"outline"} onClick={() => console.log(id)}>
-      <TrashIcon className="text-error" />
-    </ButtonIcon>
+    <>
+      <ButtonIcon variant={"outline"} onClick={() => setOpen(true)}>
+        <TrashIcon className="text-error" />
+      </ButtonIcon>
+      <Modal title={`حذف ${title}`} open={open} onClose={() => setOpen(false)}>
+        <ConfirmDelete
+          resourceName={title}
+          onClose={() => setOpen(false)}
+          disabled={isDeleting}
+          onConfirm={(e) => {
+            e.preventDefault();
+            deletePost(
+              { id },
+              {
+                onSuccess: () => {
+                  setOpen(false);
+                  router.refresh("/profile/posts");
+                },
+              }
+            );
+          }}
+        />
+      </Modal>
+    </>
   );
 };
 const EditPost = ({ id }) => {
