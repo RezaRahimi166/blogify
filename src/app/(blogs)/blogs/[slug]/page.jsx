@@ -7,7 +7,7 @@ import PostComments from "../_components/comments/PostComments";
 export const dynmicParams = false;
 // 100=>10
 export async function generateStaticParams() {
-  const posts = await getPosts();
+  const { posts } = await getPosts();
   const slugs = posts.map((post) => ({ slug: post.slug }));
   return slugs;
 }

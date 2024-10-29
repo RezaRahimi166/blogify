@@ -1,5 +1,4 @@
 "use client";
-
 import { generatePagination } from "@/utils/generatePagination";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
